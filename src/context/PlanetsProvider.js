@@ -1,11 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import PlanetsContext from './PlanetsContext';
 
-function PlanetsProvider() {
+const planetsList = [
+  {
+
+  },
+];
+
+function PlanetsProvider({ children }) {
   return (
-    <div>
-      olá
-    </div>
+    <PlanetsContext.Provider value={ { planetsList } }>
+      {children}
+    </PlanetsContext.Provider>
   );
 }
+
+PlanetsProvider.propTypes = {
+  children: PropTypes.objectOf(PropTypes.children).isRequired,
+};
 
 export default PlanetsProvider;
