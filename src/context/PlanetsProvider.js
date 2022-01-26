@@ -1,18 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import PlanetsContext from './PlanetsContext';
-
-const planetsList = [
-  {
-
-  },
-];
+import planetsContext from './PlanetsContext';
+import fetchApi from '../service/requestApi';
 
 function PlanetsProvider({ children }) {
+  const [planetList, setPlanetList] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const { results } = await fetchApi();
+      setPlanetList(results);
+    })();
+  }, []);
+  // configuração com async await aprendida com o instrutor Arthur no horário da mentoria.
+
   return (
-    <PlanetsContext.Provider value={ { planetsList } }>
+    <planetsContext.Provider value={ { data: planetList } }>
       {children}
-    </PlanetsContext.Provider>
+    </planetsContext.Provider>
   );
 }
 
