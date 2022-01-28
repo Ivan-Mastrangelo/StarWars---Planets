@@ -5,6 +5,7 @@ import fetchApi from '../service/requestApi';
 
 function PlanetsProvider({ children }) {
   const [planetList, setPlanetList] = useState([]);
+  const [nameFilter, setNameFilter] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -15,7 +16,7 @@ function PlanetsProvider({ children }) {
   // configuração com async await aprendida com o instrutor Arthur no horário da mentoria.
 
   return (
-    <planetsContext.Provider value={ { data: planetList } }>
+    <planetsContext.Provider value={ { data: planetList, nameFilter, setNameFilter } }>
       {children}
     </planetsContext.Provider>
   );
