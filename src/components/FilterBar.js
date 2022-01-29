@@ -5,17 +5,20 @@ function FiltersBar() {
   const {
     setNameFilter,
     nameFilter,
-    options,
-    setOptions,
-    compare,
-    setCompare,
-    amount,
-    setAmount,
+    filtersKeys,
+    setFiltersKeys,
+    filterByNumericValues,
   } = useContext(planetsContext);
 
-  submitFilters((e) => {
+  const handleSelect = (event) => {
+    const { value, name } = event.target;
+    setFiltersKeys({ ...filtersKeys, [name]: value });
+  };
+
+  const submitFilters = (e) => {
     e.preventDefault();
-  });
+    filterByNumericValues(filtersKeys);
+  };
 
   return (
     <form>
@@ -29,51 +32,56 @@ function FiltersBar() {
           onChange={ (e) => setNameFilter(e.target.value) }
         />
       </label>
-      <label htmlFor="options">
-        <select
-          id="options"
-          data-testid="column-filter"
-          value={ options }
-          onChange={ (e) => { setOptions(e.target.value); } }
-        >
+      <div id="numeric-filter">
+        <label htmlFor="options">
           Filtrar por
-          <option value="population">population</option>
-          <option value="orbital_period">orbital_period</option>
-          <option value="diameter">diameter</option>
-          <option value="rotation_period">rotation_period</option>
-          <option value="surface_water">surface_water</option>
-        </select>
-      </label>
-      <label htmlFor="compare">
-        <select
-          id="compare"
-          data-testid="comparison-filter"
-          value={ compare }
-          onChange={ (e) => { setCompare(e.target.value); } }
-        >
+          <select
+            id="options"
+            name="column"
+            data-testid="column-filter"
+            value={ filtersKeys.column }
+            onChange={ handleSelect }
+          >
+            <option value="population">population</option>
+            <option value="orbital_period">orbital_period</option>
+            <option value="diameter">diameter</option>
+            <option value="rotation_period">rotation_period</option>
+            <option value="surface_water">surface_water</option>
+          </select>
+        </label>
+        <label htmlFor="compare">
           Grau de comparação
-          <option value="maior que">maior que</option>
-          <option value="igual a">igual a</option>
-          <option value="menor que">menor que</option>
-        </select>
-      </label>
-      <label htmlFor="amount">
-        <input
-          type="number"
-          id="amount"
-          data-testid="value-filter"
-          value={ amount }
-          onChange={ (e) => { setAmount(e.target.value); } }
-        />
-        Quantidade
-      </label>
-      <button
-        type="submit"
-        onClick={ submitFilters }
-        data-testid="button-filter"
-      >
-        Filtrar
-      </button>
+          <select
+            id="compare"
+            name="comparison"
+            data-testid="comparison-filter"
+            value={ filtersKeys.comparison }
+            onChange={ handleSelect }
+          >
+            <option value="maior que">maior que</option>
+            <option value="igual a">igual a</option>
+            <option value="menor que">menor que</option>
+          </select>
+        </label>
+        <label htmlFor="amount">
+          Quantidade
+          <input
+            type="number"
+            id="amount"
+            name="value"
+            data-testid="value-filter"
+            value={ filtersKeys.value }
+            onChange={ handleSelect }
+          />
+        </label>
+        <button
+          type="submit"
+          onClick={ submitFilters }
+          data-testid="button-filter"
+        >
+          Filtrar
+        </button>
+      </div>
     </form>
   );
 }
