@@ -6,9 +6,11 @@ import fetchApi from '../service/requestApi';
 function PlanetsProvider({ children }) {
   const [planetList, setPlanetList] = useState([]);
   const [nameFilter, setNameFilter] = useState('');
-  const [options, setOptions] = useState('population');
-  const [compare, setCompare] = useState('Maior que');
-  const [amount, setAmount] = useState('');
+  const [filtersKeys, setFiltersKeys] = useState({
+    column: 'population',
+    comparison: 'maior que',
+    value: 0,
+  });
 
   useEffect(() => {
     (async () => {
@@ -18,16 +20,32 @@ function PlanetsProvider({ children }) {
   }, []);
   // configuração com async await aprendida com o instrutor Arthur no horário da mentoria.
 
+  const filterByNumericValues = (toFilter) => {
+    const { column, comparison, value } = toFilter;
+    if (comparison === 'maior que') {
+      setPlanetList(planetList.filter((planet) => planet[column] > Number(value)));
+    }
+    if (comparison === 'menor que') {
+      setPlanetList(planetList.filter((planet) => planet[column] < Number(value)));
+    }
+    if (comparison === 'igual a') {
+      setPlanetList(planetList.filter((planet) => planet[column] === value));
+    }
+  };
+
   const data = {
     planetList,
     nameFilter,
     setNameFilter,
-    options,
-    setOptions,
-    compare,
-    setCompare,
-    amount,
-    setAmount,
+    // options,
+    // setOptions,
+    // compare,
+    // setCompare,
+    // amount,
+    // setAmount,
+    filtersKeys,
+    setFiltersKeys,
+    filterByNumericValues,
   };
 
   return (
