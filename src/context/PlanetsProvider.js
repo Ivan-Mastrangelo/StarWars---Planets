@@ -11,6 +11,15 @@ function PlanetsProvider({ children }) {
     comparison: 'maior que',
     value: 0,
   });
+  const [selects, setSelects] = useState({
+    column: [
+      'population',
+      'orbital_period',
+      'diameter',
+      'rotation_period',
+      'surface_water',
+    ],
+  });
 
   useEffect(() => {
     (async () => {
@@ -31,21 +40,17 @@ function PlanetsProvider({ children }) {
     if (comparison === 'igual a') {
       setPlanetList(planetList.filter((planet) => planet[column] === value));
     }
-  };
+  }; // Lógica para os fitros aprendida com o amigo de turma Renan Souza.
 
   const data = {
     planetList,
     nameFilter,
     setNameFilter,
-    // options,
-    // setOptions,
-    // compare,
-    // setCompare,
-    // amount,
-    // setAmount,
     filtersKeys,
     setFiltersKeys,
     filterByNumericValues,
+    selects,
+    setSelects,
   };
 
   return (

@@ -26,7 +26,7 @@ function Table() {
       <tbody>
         {
           planetList.filter((planet) => planet.name.toLowerCase()
-            .includes(nameFilter.toLowerCase()))
+            .includes(nameFilter.toLowerCase())) // Filtro construído com auxílio do monitor Vinicius Dionysio
             .map((planet) => (
               <tr key={ planet.name }>
                 <td>{planet.name}</td>

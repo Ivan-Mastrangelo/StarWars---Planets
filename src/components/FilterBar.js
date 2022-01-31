@@ -8,6 +8,8 @@ function FiltersBar() {
     filtersKeys,
     setFiltersKeys,
     filterByNumericValues,
+    selects,
+    setSelects,
   } = useContext(planetsContext);
 
   const handleSelect = (event) => {
@@ -15,9 +17,20 @@ function FiltersBar() {
     setFiltersKeys({ ...filtersKeys, [name]: value });
   };
 
+  // Lógica de exclusão dinâmica das opções de select aprendida com o amigo de turma Renan Souza.
+  const selectedColumn = (selected) => {
+    const column = selects.column.filter((element) => element !== selected);
+    setSelects({
+      ...selects,
+      column,
+    });
+    setFiltersKeys({ ...filtersKeys, column });
+  };
+
   const submitFilters = (e) => {
     e.preventDefault();
     filterByNumericValues(filtersKeys);
+    selectedColumn(filtersKeys.column);
   };
 
   return (
@@ -42,11 +55,14 @@ function FiltersBar() {
             value={ filtersKeys.column }
             onChange={ handleSelect }
           >
-            <option value="population">population</option>
-            <option value="orbital_period">orbital_period</option>
-            <option value="diameter">diameter</option>
-            <option value="rotation_period">rotation_period</option>
-            <option value="surface_water">surface_water</option>
+            { selects.column.map((select) => (
+              <option
+                key={ select }
+                value={ select }
+              >
+                { select }
+              </option>
+            ))}
           </select>
         </label>
         <label htmlFor="compare">
