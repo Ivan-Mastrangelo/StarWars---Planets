@@ -6,6 +6,7 @@ import fetchApi from '../service/requestApi';
 function PlanetsProvider({ children }) {
   const [planetList, setPlanetList] = useState([]);
   const [nameFilter, setNameFilter] = useState('');
+  const [reset, setReset] = useState('');
   const [filtersKeys, setFiltersKeys] = useState({
     column: 'population',
     comparison: 'maior que',
@@ -13,6 +14,7 @@ function PlanetsProvider({ children }) {
   });
   const [selects, setSelects] = useState({
     column: [
+      '',
       'population',
       'orbital_period',
       'diameter',
@@ -26,7 +28,7 @@ function PlanetsProvider({ children }) {
       const { results } = await fetchApi();
       setPlanetList(results);
     })();
-  }, []);
+  }, [reset]);
   // configuração com async await aprendida com o instrutor Arthur no horário da mentoria.
 
   const filterByNumericValues = (toFilter) => {
@@ -51,6 +53,7 @@ function PlanetsProvider({ children }) {
     filterByNumericValues,
     selects,
     setSelects,
+    setReset,
   };
 
   return (
