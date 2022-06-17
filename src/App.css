@@ -44,6 +44,7 @@ body {
   background-size: cover;
   background-position: center center;
   background-attachment: fixed;
+  overflow: hidden;
 }
 
 
@@ -107,9 +108,18 @@ form {
   width: 5.2em;
 }
 
+.linha {
+  border-bottom: 6px solid rgba(137, 43, 226, 0.517);
+}
+
+.scroll {
+  width: 100%;
+  overflow-y: scroll; height:39.2em; 
+}
+
 .content-table {
   border-collapse: collapse;
-  margin: 25px 0;
+  margin: 25px 0px -10px;
   font-size: 0.9em;
   font-weight: bold;
   min-width: 400px;
@@ -122,7 +132,6 @@ form {
   text-align: left;
   font-size: 1.1em;
   font-weight: bold;
-  border-top: 5px solid rgba(137, 43, 226, 0.517);
   border-radius: 15px 15px 0 0;
   overflow: hidden;
 }
@@ -136,12 +145,6 @@ form {
   border-bottom: 1px solid black;
 }
 
-
-.scroll {
-  max-height: 100%;
-  overflow: scroll;
-}
-
 .content-table tbody tr:nth-last-of-type(odd) {
   background-color: rgba(0, 0, 0, 0.683);
 }
@@ -150,7 +153,15 @@ form {
   background-color: rgba(255, 255, 255, 0.094);
 }
 
-.content-table tbody tr:last-of-type {
+/* .content-table tbody tr:last-of-type {
   border-bottom: 5px solid rgba(137, 43, 226, 0.395);
+} */
+
+.footer {
+  color: rgba(255, 255, 255, 0.31);
+  background-color: rgba(0, 0, 0);
+  padding: 0.6em 2em 2em;
+  margin-top: 0.3em;
+  border-top: 6px solid rgba(137, 43, 226, 0.517);
 }
 
