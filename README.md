@@ -15,4 +15,28 @@ Nele foi desenvolvida uma tabela com filtros de planetas do universo de Star War
 
 O arquivo serviceWorker.js foi escrito e cedido pela escola.
 
+### Para executá-lo localmente
+
+Basta clonar o projeto:
+```
+git@github.com:Ivan-Mastrangelo/StarWars---Planets
+Public
+```
+Entrar no diretório criado:
+```
+  cd StarWars---Planets
+Public
+  ```
+Instalar as dependências do projeto:
+```
+  npm install
+  ```
+E iniciar o servidor:
+```
+  npm run start
+  ```
+Após esses comandos, acesse no navegador:
+```
+  http://localhost:3000/
+  ```
 ---
