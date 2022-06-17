@@ -5,7 +5,7 @@ function Table() {
   const { planetList, nameFilter } = useContext(planetsContext);
 
   return (
-    <table>
+    <table className="content-table">
       <thead>
         <tr>
           <th>Name</th>
@@ -23,7 +23,7 @@ function Table() {
           <th>URL</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className="scroll">
         {
           planetList.filter((planet) => planet.name.toLowerCase()
             .includes(nameFilter.toLowerCase())) // Filtro construído com auxílio do monitor Vinicius Dionysio
