@@ -53,6 +53,8 @@ function PlanetsProvider({ children }) {
     usedFilters.forEach((el) => filterByNumericValues(el));
   }, [staticPlanets, usedFilters, filterByNumericValues]);
 
+  // Uso dinâmico dos filtros aprendido com o instrutor Gabs, da trybe.
+
   const data = {
     planetList,
     nameFilter,

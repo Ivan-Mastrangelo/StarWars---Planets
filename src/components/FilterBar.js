@@ -26,7 +26,7 @@ function FiltersBar() {
     setFiltersKeys({ ...filtersKeys, [name]: value });
   };
 
-  // Lógica de exclusão dinâmica das opções de select aprendida com o amigo de turma Renan Souza.
+  // Lógica de exclusão dinâmica das opções de select aprendida com o amigo de turma Renan Souza e aperfeiçoada com ajuda do instrutor Gabs, da Trybe, verificado no useEffect inserido no início do arquivo.
   const selectedColumn = (selected) => {
     const column = selects.column.filter((element) => element !== selected);
     setSelects({
@@ -55,7 +55,6 @@ function FiltersBar() {
     restoreSelect(value);
     const usedFiltersRemaining = usedFilters.filter((el) => el.column !== value);
     setUsedFilters(usedFiltersRemaining);
-    console.log(usedFiltersRemaining);
     if (usedFiltersRemaining.length > 0) setIsDisable(false);
   };
 
