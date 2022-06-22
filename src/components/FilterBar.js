@@ -1,5 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import planetsContext from '../context/PlanetsContext';
+
+const quatro = 4;
 
 function FiltersBar() {
   const {
@@ -7,11 +9,17 @@ function FiltersBar() {
     nameFilter,
     filtersKeys,
     setFiltersKeys,
-    filterByNumericValues,
     selects,
     setSelects,
-    setReset,
+    usedFilters,
+    setUsedFilters,
+    isDisable,
+    setIsDisable,
   } = useContext(planetsContext);
+
+  useEffect(() => {
+    setFiltersKeys((prev) => ({ ...prev, column: selects.column[0] }));
+  }, [selects, setFiltersKeys]);
 
   const handleSelect = (event) => {
     const { value, name } = event.target;
@@ -25,31 +33,30 @@ function FiltersBar() {
       ...selects,
       column,
     });
-    setFiltersKeys({ ...filtersKeys, column });
   };
 
   const submitFilters = (e) => {
     e.preventDefault();
-    filterByNumericValues(filtersKeys);
     selectedColumn(filtersKeys.column);
+    setUsedFilters([...usedFilters, filtersKeys]);
+    if (usedFilters.length === quatro) setIsDisable(true);
+    console.log(usedFilters);
   };
 
-  const resetColumn = () => {
-    const column = [
-      '',
-      'population',
-      'orbital_period',
-      'diameter',
-      'rotation_period',
-      'surface_water',
-    ];
-    setSelects({ column });
+  const restoreSelect = (select) => {
+    if (select !== undefined) {
+      const newColumn = [...selects.column];
+      newColumn.push(select);
+      setSelects({ column: newColumn });
+    }
   };
 
-  const clearFilters = (e) => {
-    e.preventDefault();
-    resetColumn();
-    setReset(Math.random());
+  const cleanFilters = (value) => {
+    restoreSelect(value);
+    const usedFiltersRemaining = usedFilters.filter((el) => el.column !== value);
+    setUsedFilters(usedFiltersRemaining);
+    console.log(usedFiltersRemaining);
+    if (usedFiltersRemaining.length > 0) setIsDisable(false);
   };
 
   return (
@@ -115,19 +122,31 @@ function FiltersBar() {
         </label>
         <button
           className="button1"
-          type="submit"
+          disabled={ isDisable }
+          type="button"
           onClick={ submitFilters }
           data-testid="button-filter"
         >
           Filtrar
         </button>
-        <button
-          className="button2"
-          type="submit"
-          onClick={ clearFilters }
-        >
-          Refresh
-        </button>
+      </div>
+      <div data-testid="filter" className="appliedFilters">
+        {
+          usedFilters[0] !== undefined && usedFilters.map((el, i) => (
+            <div key={ i } className="eachFilter">
+              <span>{`${el.column} ${el.comparison} ${el.value} `}</span>
+              <button
+                className="button2"
+                type="button"
+                value={ el.column }
+                onClick={ () => cleanFilters(el.column) }
+                data-testid="filter"
+              >
+                X
+              </button>
+            </div>
+          ))
+        }
       </div>
     </form>
   );

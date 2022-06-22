@@ -55,7 +55,7 @@ body {
   font-size: 48px;
   text-align: center;
   color: gold;
-  margin-bottom: 0.1em;
+  margin-bottom: -0.3em;
   height: 1.8em;
   background-image: url(./img/416445.jpg);
   background-repeat: no-repeat;
@@ -87,6 +87,7 @@ form {
   justify-content: space-evenly;
   width: 55%;
   margin-left: 20%;
+  margin-bottom: -1em;
 }
 
 .filtro1, .filtro2, .filtro3 {
@@ -97,19 +98,60 @@ form {
   border-radius: 4px;
 }
 
-.button1, .button2 {
+.filtro1 {
+  width: 9em;
+}
+
+.button1 {
   background-color: rgba(60, 5, 111, 0.74);
   border: 3px solid blue;
   color: white;
   border-radius: 4px;
+  width: 5.2em;
 }
 
-.button1 {
-  width: 5.2em;
+.button1:hover {
+  background-color: gold;
+  color: blue;
+  border: 3px solid #61dafb;
+}
+
+.appliedFilters {
+  display: flex;
+  align-items: center;
+  width: 70%;
+  height: 1.5em;
+  margin-left: 20%;
+  background-color: rgba(0, 0, 0, 0.683);
+  margin-top: 2em;
+  margin-bottom: -1.5em;
+  width: 80em;
+  font-size: 0.8em;
+}
+
+.eachFilter {
+  align-items: flex-end;
+  padding-left: 0.5em;
+}
+
+.button2 {
+  background-color: rgba(60, 5, 111, 0.74);
+  border: 3px solid blue;
+  color: white;
+  border-radius: 4px;
+  width: 2em;
+  height: 1.5em;
+}
+
+.button2:hover {
+  background-color: gold;
+  color: blue;
+  border: 3px solid #61dafb;
 }
 
 .linha {
   border-bottom: 6px solid rgba(137, 43, 226, 0.517);
+
 }
 
 .scroll {
@@ -162,6 +204,6 @@ form {
   background-color: rgba(0, 0, 0);
   padding: 0.6em 2em 2em;
   margin-top: 0.3em;
-  border-top: 6px solid rgba(137, 43, 226, 0.517);
+  border-top: 5px solid rgba(137, 43, 226, 0.517);
 }
 

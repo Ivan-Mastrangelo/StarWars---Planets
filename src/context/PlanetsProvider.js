@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import planetsContext from './PlanetsContext';
 import fetchApi from '../service/requestApi';
 
 function PlanetsProvider({ children }) {
+  const [staticPlanets, setStaticPlanets] = useState([]);
   const [planetList, setPlanetList] = useState([]);
   const [nameFilter, setNameFilter] = useState('');
-  const [reset, setReset] = useState('');
+  const [usedFilters, setUsedFilters] = useState([]);
+  const [isDisable, setIsDisable] = useState(false);
   const [filtersKeys, setFiltersKeys] = useState({
     column: 'population',
     comparison: 'maior que',
@@ -14,7 +16,6 @@ function PlanetsProvider({ children }) {
   });
   const [selects, setSelects] = useState({
     column: [
-      '',
       'population',
       'orbital_period',
       'diameter',
@@ -26,23 +27,31 @@ function PlanetsProvider({ children }) {
   useEffect(() => {
     (async () => {
       const { results } = await fetchApi();
-      setPlanetList(results);
+      setStaticPlanets(results);
     })();
-  }, [reset]);
+  }, []);
   // configuração com async await aprendida com o instrutor Arthur no horário da mentoria.
 
-  const filterByNumericValues = (toFilter) => {
+  const filterByNumericValues = useCallback((toFilter) => {
     const { column, comparison, value } = toFilter;
     if (comparison === 'maior que') {
-      setPlanetList(planetList.filter((planet) => planet[column] > Number(value)));
+      setPlanetList((planets) => planets
+        .filter((planet) => planet[column] > Number(value)));
     }
     if (comparison === 'menor que') {
-      setPlanetList(planetList.filter((planet) => planet[column] < Number(value)));
+      setPlanetList((planets) => planets
+        .filter((planet) => planet[column] < Number(value)));
     }
     if (comparison === 'igual a') {
-      setPlanetList(planetList.filter((planet) => planet[column] === value));
+      setPlanetList((planets) => planets
+        .filter((planet) => planet[column] === value));
     }
-  }; // Lógica para os fitros aprendida com o amigo de turma Renan Souza.
+  }, []); // Lógica para os fitros aprendida com o amigo de turma Renan Souza.
+
+  useEffect(() => {
+    setPlanetList(staticPlanets);
+    usedFilters.forEach((el) => filterByNumericValues(el));
+  }, [staticPlanets, usedFilters, filterByNumericValues]);
 
   const data = {
     planetList,
@@ -53,7 +62,11 @@ function PlanetsProvider({ children }) {
     filterByNumericValues,
     selects,
     setSelects,
-    setReset,
+    usedFilters,
+    setUsedFilters,
+    setPlanetList,
+    isDisable,
+    setIsDisable,
   };
 
   return (
