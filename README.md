@@ -19,7 +19,7 @@ O arquivo serviceWorker.js foi escrito e cedido pela escola.
 
 Basta clonar o projeto:
 ```
-git@github.com:Ivan-Mastrangelo/StarWars---Planets
+git@github.com:Ivan-Mastrangelo/StarWars---Planets.git
 ```
 Entrar no diretório criado:
 ```
