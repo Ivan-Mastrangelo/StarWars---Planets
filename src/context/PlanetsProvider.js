@@ -30,7 +30,6 @@ function PlanetsProvider({ children }) {
       setStaticPlanets(results);
     })();
   }, []);
-  // configuração com async await aprendida com o instrutor Arthur no horário da mentoria.
 
   const filterByNumericValues = useCallback((toFilter) => {
     const { column, comparison, value } = toFilter;
@@ -46,14 +45,12 @@ function PlanetsProvider({ children }) {
       setPlanetList((planets) => planets
         .filter((planet) => planet[column] === value));
     }
-  }, []); // Lógica para os fitros aprendida com o amigo de turma Renan Souza.
+  }, []);
 
   useEffect(() => {
     setPlanetList(staticPlanets);
     usedFilters.forEach((el) => filterByNumericValues(el));
   }, [staticPlanets, usedFilters, filterByNumericValues]);
-
-  // Uso dinâmico dos filtros aprendido com o instrutor Gabs, da trybe.
 
   const data = {
     planetList,
